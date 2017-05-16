@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
-var parser = require("nomnom");
-var glob = require("glob");
-var findpkgs = require("../lib/composer-findpackages");
-var npm = require("npm");
-var path = require("path");
-var fs = require("fs");
-var _ = require("underscore");
+var parser = require("nomnom")
+var Promise = require('bluebird')
+var glob = require("glob")
+var findpkgs = require("../lib/composer-findpackages.js")
+var _ = require("underscore")
 
 parser.command("scan")
   .option("repo", {
@@ -16,9 +14,8 @@ parser.command("scan")
     help: "subdirectory in repository"
   })
   .callback(function(opts) {
-    //We are ignoring anything with the name "test" or "tests" in the path
     return findpkgs(".", ['test/', 'tests/'])
-    .then(function scanComposerPackages(source_units) {
+    .then(function (source_units) {
       if (!source_units || source_units.length < 1) {
         console.log(JSON.stringify([], null, 2));
         return;
@@ -27,15 +24,16 @@ parser.command("scan")
       // convert from composer-findpkgs format to source unit
       var srcunits = source_units.map(function(pkg) {
         return {
-          Name: pkg.name,
-          Type: "ComposerPackage",
-          Dir: pkg.dir,
-          Version: pkg.version,
-          Files: pkg.files,
-          Dependencies: pkg.dependencies,
-          Ops: {depresolve: null, graph: null},
-          Config: {}
-        }
+          'Name': pkg.name,
+          'Type': "ComposerPackage",
+          'Dir': pkg.dir,
+          'Version': pkg.version,
+          'Files': pkg.files,
+          'Dependencies': pkg.dependencies,
+          'Data': pkg,
+          'Ops': {depresolve: null, graph: null},
+          'Config': {}
+        };
       })
       
       console.log(JSON.stringify(srcunits, null, 2));

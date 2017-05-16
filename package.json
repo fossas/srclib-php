@@ -3,22 +3,28 @@
   "version": "1.0.0",
   "description": "Srclib php scanner",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "srclib-php": "./.bin/srclib-php"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fossas/srclib-php.git"
+    "url": "https://github.com/fossas/srclib-php.git"
   },
+  "keywords": [
+    "srclib",
+    "php",
+    "composer"
+  ],
   "author": "Alex Nuccio",
+  "homepage": "https://github.com/fossas/srclib-php#readme",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fossas/srclib-php/issues"
   },
-  "homepage": "https://github.com/fossas/srclib-php#readme",
   "dependencies": {
     "bluebird": "^3.3.5",
     "glob": "^4.0.6",
+    "nomnom": "^1.8.1",
     "underscore": "^1.8.3"
   }
 }
