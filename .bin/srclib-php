@@ -14,7 +14,7 @@ parser.command("scan")
     help: "subdirectory in repository"
   })
   .callback(function(opts) {
-    return findpkgs(".", ['test/', 'tests/'])
+    return findpkgs(".", ['test/', 'tests/', 'vendor/'])
     .then(function (source_units) {
       if (!source_units || source_units.length < 1) {
         console.log(JSON.stringify([], null, 2));
